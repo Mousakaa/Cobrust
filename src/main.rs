@@ -60,6 +60,7 @@ fn main() -> Result<(), io::Error> {
 
                         KeyCode::Char('h') => { match snake.direction {
                             snake::Direction::Right => (),
+                            snake::Direction::Left => (),
                             _ => {
                                 snake.direction = snake::Direction::Left;
                                 snake.score = if snake.score > 0 { snake.score - 1 } else { 0 };
@@ -67,6 +68,7 @@ fn main() -> Result<(), io::Error> {
                         }},
                         KeyCode::Char('j') => { match snake.direction {
                             snake::Direction::Up => (),
+                            snake::Direction::Down => (),
                             _ => {
                                 snake.direction = snake::Direction::Down;
                                 snake.score = if snake.score > 0 { snake.score - 1 } else { 0 };
@@ -74,6 +76,7 @@ fn main() -> Result<(), io::Error> {
                         }},
                         KeyCode::Char('k') => { match snake.direction {
                             snake::Direction::Down => (),
+                            snake::Direction::Up => (),
                             _ => {
                                 snake.direction = snake::Direction::Up;
                                 snake.score = if snake.score > 0 { snake.score - 1 } else { 0 };
@@ -81,6 +84,7 @@ fn main() -> Result<(), io::Error> {
                         }},
                         KeyCode::Char('l') => { match snake.direction {
                             snake::Direction::Left => (),
+                            snake::Direction::Right => (),
                             _ => {
                                 snake.direction = snake::Direction::Right;
                                 snake.score = if snake.score > 0 { snake.score - 1 } else { 0 };
