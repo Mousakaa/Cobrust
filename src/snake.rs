@@ -45,34 +45,29 @@ impl Snake {
     }
 
     pub fn forward(&mut self, width: &u16, height: &u16) {
-        let head = match self.direction {
+        let mut head = match self.direction {
             snake::Direction::Left => (self.coords[0].0 - 2.0, self.coords[0].1),
             snake::Direction::Down => (self.coords[0].0, self.coords[0].1 - 2.0),
             snake::Direction::Up => (self.coords[0].0, self.coords[0].1 + 2.0),
             snake::Direction::Right => (self.coords[0].0 + 2.0, self.coords[0].1)
         };
 
-        let neck = match self.direction {
+        let mut neck = match self.direction {
             snake::Direction::Left => (self.coords[0].0 - 1.0, self.coords[0].1),
             snake::Direction::Down => (self.coords[0].0, self.coords[0].1 - 1.0),
             snake::Direction::Up => (self.coords[0].0, self.coords[0].1 + 1.0),
             snake::Direction::Right => (self.coords[0].0 + 1.0, self.coords[0].1)
         };
 
-        if self.coords.contains(&head) || self.coords.contains(&neck) { //If snake hits itself
-            self.game_mode = snake::GameMode::Lost;
-        }
+        (head, neck) = match (head, neck) {
+            ((-1.0, y), _) | (_, (-1.0, y)) => (((*width - 1) as f64, y), (*width as f64, y)),
+            ((xh, y), (xn, _)) if xh == (*width + 1) as f64 || xn == (*width + 1) as f64 => ((1.0, y), (0.0, y)),
+            ((x, -1.0), _) | (_, (x, -1.0)) => ((x, (*height - 1) as f64), (x, *height as f64)),
+            ((x, yh), (_, yn)) if yh == (*height + 1) as f64 || yn == (*height + 1) as f64 => ((x, 1.0), (x, 0.0)),
+            t => t
+        };
 
-        else if 
-            head.0 == 0.0 ||
-            head.0 == *width as f64 ||
-            head.1 == 0.0 ||
-            head.1 == *height as f64 ||
-            neck.0 == 0.0 ||
-            neck.0 == *width as f64 ||
-            neck.1 == 0.0 ||
-            neck.1 == *height as f64
-        { //If snake hits walls
+        if self.coords.contains(&head) || self.coords.contains(&neck) { //If snake hits itself
             self.game_mode = snake::GameMode::Lost;
         }
 

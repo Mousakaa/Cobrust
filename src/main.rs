@@ -196,7 +196,7 @@ fn ui<B: Backend>(frame: &mut Frame<B>, snake: &snake::Snake, width: &mut u16, h
             Block::default()
                 .borders(Borders::ALL)
                 .style(Style::default().fg(Color::White))
-                .border_type(BorderType::Plain)
+                .border_type(BorderType::Rounded)
         );
 
     frame.render_widget(title_bar, chunks[0]);
@@ -206,7 +206,7 @@ fn ui<B: Backend>(frame: &mut Frame<B>, snake: &snake::Snake, width: &mut u16, h
         .block(
             Block::default()
             .borders(Borders::ALL)
-            .border_type(BorderType::Plain)
+            .border_type(BorderType::Rounded)
         )
         .paint(|ctx| draw_game(ctx, &snake, width, height))
         .x_bounds([0.0, *width as f64])
@@ -230,7 +230,7 @@ fn ui<B: Backend>(frame: &mut Frame<B>, snake: &snake::Snake, width: &mut u16, h
             Block::default()
                 .borders(Borders::ALL)
                 .title("Keys")
-                .border_type(BorderType::Plain)
+                .border_type(BorderType::Rounded)
         )
         .widths(&[Constraint::Percentage(85), Constraint::Percentage(15)]);
 
