@@ -33,7 +33,7 @@ fn main() -> Result<(), io::Error> {
 
     terminal.clear()?;
 
-    let frame_duration = Duration::from_millis(10);
+    let frame_duration = Duration::from_millis(30);
     let mut width = terminal.size()?.width * 2;
     let mut height = (terminal.size()?.height - 6) * 4;
     let mut snake = snake::Snake::new(width, height);
